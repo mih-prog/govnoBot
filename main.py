@@ -10,16 +10,16 @@ def get_prefix(bot, msg):
     return commands.when_mentioned_or(*prefixes)(bot, msg)
 
 
-bot = commands.Bot(command_prefix=get_prefix, description='')
+govno = commands.Bot(command_prefix=get_prefix, description='')
 exts = ['cogs.music']  # Add your Cog extensions here
 
 
 for i in exts:
-    bot.load_extension(i)
+    govno.load_extension(i)
     print(f'cog: {i} connect')
 
 def run():
-    bot.run(config.get('token'))
+    govno.run(config.get('token'))
 
 if __name__ == '__main__':
     run()
