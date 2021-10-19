@@ -1,10 +1,10 @@
 from discord.ext import commands
-import config
-config = config()
+from modules import config
+config = config.configs("config")
 
 
 def get_prefix(bot, msg):
-    prefixes = [config.prefix, f'<@{bot.user.id}>']
+    prefixes = [config.get("prefix"), f'<@{bot.user.id}>']
     # Your bot prefix(s)
 
     return commands.when_mentioned_or(*prefixes)(bot, msg)
