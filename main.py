@@ -2,7 +2,7 @@ from discord.ext import commands
 from modules import config
 from utils import configUtils
 config = config.configs("config")
-configUtils.checkConfigs(correction = True)
+configUtils.checkConfigs(config, correction = True)
 
 
 def get_prefix(bot, msg):
