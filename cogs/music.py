@@ -54,7 +54,7 @@ class Music(commands.Cog, name='Musique'):
             run_coroutine_threadsafe(voice.disconnect(), self.bot.loop)
             run_coroutine_threadsafe(self.message[ctx.guild].delete(), self.bot.loop)
 
-    @commands.command(aliases=['p'], brief='.play [url/words]')
+    @commands.command(aliases=['p'])
     async def play(self, ctx, *, video: str):
         channel = ctx.author.voice.channel
         voice = get(self.bot.voice_clients, guild=ctx.guild)
@@ -75,7 +75,7 @@ class Music(commands.Cog, name='Musique'):
             self.song_queue[ctx.guild].append(song)
             await self.edit_message(ctx)
 
-    @commands.command(brief='.pause')
+    @commands.command()
     async def pause(self, ctx):
         voice = get(self.bot.voice_clients, guild=ctx.guild)
         if voice.is_connected():
@@ -87,7 +87,7 @@ class Music(commands.Cog, name='Musique'):
                 await ctx.send('⏯️ Музыка снята с паузы!', delete_after=5.0)
                 voice.resume()
 
-    @commands.command(aliases=['pass'], brief='.skip')
+    @commands.command(aliases=['pass'])
     async def skip(self, ctx):
         voice = get(self.bot.voice_clients, guild=ctx.guild)
         if voice.is_playing():

@@ -1,25 +1,33 @@
 from discord.ext import commands
 from modules import config
+from utils import configUtils
 config = config.configs("config")
+configUtils.checkConfigs(correction = True)
 
 
 def get_prefix(bot, msg):
     prefixes = [config.get("prefix"), f'<@{bot.user.id}>']
-    # Your bot prefix(s)
+    # 1 префикс из конфигов. 2 упоминание бота как префикс
 
     return commands.when_mentioned_or(*prefixes)(bot, msg)
 
+class govnoBotComponents:
+    # класс для обращения к конфигам и бд из любова cog'а.
+    config = config
 
-govno = commands.Bot(command_prefix=get_prefix, description='')
-exts = ['cogs.music']  # Add your Cog extensions here
+
+client = commands.Bot(command_prefix=get_prefix, description='')  # создание клиента
+client.GBC = govnoBotComponents  # вставка класса в класс клиент
+
+exts = ['cogs.music']  # list с путями к cog'ам, при создании cog'а добавить его сюда
 
 
-for i in exts:
-    govno.load_extension(i)
+for i in exts:  # цикл который добовляет cog'и
+    client.load_extension(i)
     print(f'cog: {i} connect')
 
-def run():
-    govno.run(config.get('token'))
+def run(): # функция для запуска бота при импорте этого файла
+    client.run(config.get('token'))
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # выполняется при запус 
     run()
