@@ -5,7 +5,6 @@ from discord_components import DiscordComponents, SelectOption, Select
 green = 0x6DFC03
 red = 0xFC0E03
 blue = 0x1E90FD
-Bot_Icon = 'https://media.discordapp.net/attachments/797132503546069002/897799152547794954/454_20210927092044-1.png?width=566&height=566'
 
 class Information(commands.Cog):
 
@@ -24,7 +23,7 @@ class Information(commands.Cog):
         Help.add_field(name='💸 Экономика', value='*🛠️ В разработке*', inline=False)
         Help.add_field(name='👋 Приветствие', value='welcome, welcome_chat, welcome_media, welcome_off', inline=False)
         Help.add_field(name='🎴 Прощание', value='goodbye, goodbye_chat, goodbye_media, goodbye_off', inline=False)
-        Help.set_thumbnail(url=Bot_Icon)
+        Help.set_thumbnail(url=self.client.user.avatar_url)
         Help.set_footer(text=f'{self.client.user.name} | DisDev')
         await ctx.send(embed=Help, components=[Select(placeholder='Выберете интресующию категорию', options=[
             SelectOption(label="📒 Информация", value="Help #1"),
@@ -135,10 +134,10 @@ class Information(commands.Cog):
         Bot = discord.Embed(title='О боте', color=blue)
         Bot.add_field(name="👥 Назване:", value=f'{self.client.user.name}', inline=False)
         Bot.add_field(name="🛠️ Версия:", value=f'1.0.0', inline=False)
-        Bot.add_field(name="🛰️ Поддержка:", value=f'Поддержку видёт сервер DisDev', inline=False)
-        Bot.add_field(name="🖱️ Разработчики:", value=f'Марукля и CrazyDevNEW', inline=False)
+        Bot.add_field(name="🛰️ Поддержка:", value=f'Поддержку видёт сервер {self.client.get_guild(self.client.GBC.config.get("mainGuilaId"))}', inline=False)
+        Bot.add_field(name="🖱️ Разработчики:", value=f'{" ".join(self.client.GBC.config.get("developersId"))}', inline=False)
         Bot.add_field(name="🔧 Тех-поддержка:", value=f'https://discord.gg/RdWygWUGz9', inline=False)
-        Bot.set_thumbnail(url=Bot_Icon)
+        Bot.set_thumbnail(url=self.client.user.avatar_url)
         Bot.set_footer(text=f'{self.client.user.name} | DisDev')
         await ctx.send(embed=Bot)
 

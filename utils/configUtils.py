@@ -2,6 +2,7 @@ defaultConfig = {
     "token":None,
     "version":.01,
     "prefix":"D.",
+    "developersId":[755068631771119617, 482206701131399178],
     "adminsId":[755068631771119617, 482206701131399178],
     "modersId":[562314036323287063],
     "managersId":[],

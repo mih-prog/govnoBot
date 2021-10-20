@@ -2,3 +2,4 @@ discord
 youtube_dl
 requests
 PyNaCl
+discord_components
