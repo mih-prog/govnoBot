@@ -10,7 +10,8 @@ defaultConfig = {
 
 def checkConfigs(config, correction = False):
     chechResult = {}
-    for index, value in defaultConfig:
+    for index in defaultConfig:
+        value = defaultConfig[index]
         if config.get(index) is None:
             if correction:
                 config.set(index, value)

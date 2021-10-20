@@ -5,7 +5,7 @@ class configs():
     def __init__(self, confDir):
         self.DbDerectoryName = confDir
 
-    def Get(self, path):
+    def get(self, path):
         if not os.path.isdir(self.DbDerectoryName + '/' + path):
             return None
         else:
@@ -19,7 +19,7 @@ class configs():
                 file.close()
                 return data
 
-    def Set(self, path, data):
+    def set(self, path, data):
         if not os.path.isdir(self.DbDerectoryName + '/' + path):
             os.makedirs(self.DbDerectoryName + '/' + path)
             file = io.FileIO(self.DbDerectoryName+'/'+path+'/data', 'w+')
