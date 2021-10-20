@@ -17,9 +17,10 @@ class govnoBotComponents:
 
 
 client = commands.Bot(command_prefix=get_prefix, description='')  # создание клиента
+client.remove_command('help')
 client.GBC = govnoBotComponents  # вставка класса в класс клиент
 
-exts = ['cogs.music']  # list с путями к cog'ам, при создании cog'а добавить его сюда
+exts = ['cogs.music', 'cogs.Information']  # list с путями к cog'ам, при создании cog'а добавить его сюда
 
 
 for i in exts:  # цикл который добовляет cog'и
