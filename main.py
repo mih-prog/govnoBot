@@ -1,6 +1,8 @@
+import discord
 from discord.ext import commands
 from modules import config
 from utils import configUtils
+
 config = config.configs("config")
 configUtils.checkConfigs(config, correction = True)
 
@@ -14,11 +16,13 @@ def get_prefix(bot, msg):
 class govnoBotComponents:
     # класс для обращения к конфигам и бд из любова cog'а.
     config = config
+    __client = pymongo.MongoClient(F"mongodb+srv://mih:{config.get('mongoDbPassword')}@maindb.dyjqs.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+db = client.test
 
 
-client = commands.Bot(command_prefix=get_prefix, description='')  # создание клиента
+client = commands.Bot(command_prefix=get_prefix, description='', Intents=discord.Intents.all())  # создание клиента
 client.remove_command('help')
-client.GBC = govnoBotComponents  # вставка класса в класс клиент
+client.GBC = govnoBotComponents  # вставка класса в класс client
 
 exts = ['cogs.music', 'cogs.Information']  # list с путями к cog'ам, при создании cog'а добавить его сюда
 
