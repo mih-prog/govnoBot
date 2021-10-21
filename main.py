@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from modules import config
 from utils import configUtils
+import pymongo
 
 config = config.configs("config")
 configUtils.checkConfigs(config, correction = True)
@@ -16,8 +17,10 @@ def get_prefix(bot, msg):
 class govnoBotComponents:
     # класс для обращения к конфигам и бд из любова cog'а.
     config = config
-    __client = pymongo.MongoClient(F"mongodb+srv://mih:{config.get('mongoDbPassword')}@maindb.dyjqs.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-db = client.test
+    if config.get('mongoDbPassword') is None:
+        raise Exception
+    __client = pymongo.MongoClient(F"mongodb+srv://{config.get('mongoDbLogin')}:{config.get('mongoDbPassword')}@maindb.dyjqs.mongodb.net/maindb?retryWrites=true&w=majority")
+    db = __client.botdb
 
 
 client = commands.Bot(command_prefix=get_prefix, description='', Intents=discord.Intents.all())  # создание клиента
