@@ -7,6 +7,7 @@ defaultConfig = {
     "modersId":[562314036323287063],
     "managersId":[],
     "invitationMainGildUrl":"https://discord.gg/nv4CbNyutE",
+    "logChannelld":811826259213549588,
     "colors":{
         "green" : 0x6DFC03,
         "red" : 0xFC0E03,
