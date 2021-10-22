@@ -17,7 +17,7 @@ def get_prefix(bot, msg):
 class govnoBotComponents:
     # класс для обращения к конфигам и бд из любова cog'а.
     config = config
-    logger = logger.log()
+    logger = logger.log(config)
     if config.get('mongoDbPassword') is None or config.get('mongoDbLogin') is None :
         raise Exception
     __client = pymongo.MongoClient(F"mongodb+srv://{config.get('mongoDbLogin')}:{config.get('mongoDbPassword')}@maindb.dyjqs.mongodb.net/maindb?retryWrites=true&w=majority")

@@ -1,12 +1,7 @@
 import discord
 from discord.ext import commands
-from discord_components import DiscordComponents, SelectOption, Select
 
-green = 0x6DFC03
-red = 0xFC0E03
-blue = 0x1E90FD
-
-class Db(commands.Cog):
+class Events(commands.Cog):
 
     def __init__(self, client):
         self.client = client
@@ -22,4 +17,4 @@ class Db(commands.Cog):
 
 
 def setup(client):
-    client.add_cog(Db(client))
+    client.add_cog(Events(client))

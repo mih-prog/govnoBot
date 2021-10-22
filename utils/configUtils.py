@@ -8,6 +8,7 @@ defaultConfig = {
     "managersId":[],
     "invitationMainGildUrl":"https://discord.gg/nv4CbNyutE",
     "logChannelld":811826259213549588,
+    "LogFileName":"log.txt",
     "colors":{
         "green" : 0x6DFC03,
         "red" : 0xFC0E03,

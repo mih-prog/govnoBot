@@ -19,15 +19,15 @@ class log():
 
             log = f'{time.strftime("%a.%X")};{type[0]};{logText}'
             print(log)
-            self.LogFile.write(log+'\n')
-            self.LogFile.flush()
+            self.__LogFile.write(log+'\n')
+            self.__LogFile.flush()
             embed = discord.Embed(title=f'log{type[0]}', description=logText, colour=type[1])
             await self.__LogChennel.send(embed=embed)
         elif embed is not None:
             log = f'{time.strftime("%a.%X")};{embed.title}:{embed.description}'
             print(log)
-            self.LogFile.write(log+'\n')
-            self.LogFile.flush()
+            self.__LogFile.write(log+'\n')
+            self.__LogFile.flush()
             await self.__LogChennel.send(embed=embed)
         else:
             raise "invalid argument"
