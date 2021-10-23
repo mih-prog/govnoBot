@@ -28,7 +28,11 @@ client = commands.Bot(command_prefix=get_prefix, description='', Intents=discord
 client.remove_command('help')
 client.GBC = govnoBotComponents  # вставка класса в класс client
 
-exts = ['cogs.music', 'cogs.Information']  # list с путями к cog'ам, при создании cog'а добавить его сюда
+exts = [
+    'cogs.music', 
+    'cogs.Information',
+    'cogs.events',
+    ]  # list с путями к cog'ам, при создании cog'а добавить его сюда
 
 
 for i in exts:  # цикл который добовляет cog'и

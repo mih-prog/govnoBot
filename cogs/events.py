@@ -9,7 +9,7 @@ class Events(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         self.client.GBC.logger.setLogChannel(self.client.get_channel(self.client.GBC.config.get("logChannelld")))
-        self.client.GBC.logger.log('Bot is ready')
+        await self.client.GBC.logger.sendLog('Bot is ready', type=self.client.GBC.logger.logInfo)
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
