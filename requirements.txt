@@ -5,3 +5,4 @@ PyNaCl
 discord_components
 PyMongo
 pymongo[srv]
+motor
