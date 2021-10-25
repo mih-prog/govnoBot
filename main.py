@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from modules import config, logger
 from utils import configUtils
-import pymongo
+import motor.motor_asyncio
 
 config = config.configs("config")
 configUtils.checkConfigs(config, correction = True)
@@ -20,7 +20,7 @@ class govnoBotComponents:
     logger = logger.log(config)
     if config.get('mongoDbPassword') is None or config.get('mongoDbLogin') is None :
         raise Exception
-    __client = pymongo.MongoClient(F"mongodb+srv://{config.get('mongoDbLogin')}:{config.get('mongoDbPassword')}@maindb.dyjqs.mongodb.net/maindb?retryWrites=true&w=majority")
+    __client = motor.motor_asyncio.AsyncIOMotorClient(F"mongodb+srv://{config.get('mongoDbLogin')}:{config.get('mongoDbPassword')}@maindb.dyjqs.mongodb.net/maindb?retryWrites=true&w=majority")
     db = __client.botdb
 
 
