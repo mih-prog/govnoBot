@@ -5,6 +5,8 @@ class log():
     def __init__(self, config):
         self.__LogChennel = None
         self.__LogFile = open(config.get("LogFileName"), 'a', buffering=1)
+
+        # type log
         self.logInfo = ("Info", discord.colour.Colour.dark_orange())
         self.logError = ("Error", discord.colour.Colour.dark_red())
         self.logDebug = ("Debug", discord.colour.Colour.dark_purple())

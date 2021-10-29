@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord_components import DiscordComponents
 
 class Events(commands.Cog):
 
@@ -8,6 +9,7 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
+        DiscordComponents(self.client)
         self.client.GBC.logger.setLogChannel(self.client.get_channel(self.client.GBC.config.get("logChannelld")))
         await self.client.GBC.logger.sendLog('Bot is ready', type=self.client.GBC.logger.logInfo)
 
