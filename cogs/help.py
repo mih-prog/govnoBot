@@ -43,6 +43,7 @@ class Information(commands.Cog):
     def __init__(self, client):
         self.client = client
         self.config = self.client.GBC.config
+        self.utils = self.client.GBC.utils
 
     @commands.command()
     async def help(self, ctx):
@@ -54,15 +55,15 @@ class Information(commands.Cog):
         for classCommandIndex in helpCommands:
             classCommand = helpCommands.get(classCommandIndex)
             value = ""
-
-            if classCommand.get("commands") is not None:
-                options.append(SelectOption(label=classCommand.get("name"), value="help."+classCommandIndex))
-                for command in classCommand.get("commands"):
-                    value += command.get("name")+", "
-                value = value[:-2]
-            else:
-                value = "🛠️ В разработке"
-            embed.add_field(name=classCommand.get("name"), value=value, inline=False)
+            if classCommand.get("private") is not True or self.utils.userIsPersonal(ctx.author.id):
+                if classCommand.get("commands") is not None:
+                    options.append(SelectOption(label=classCommand.get("name"), value="help."+classCommandIndex))
+                    for command in classCommand.get("commands"):
+                        value += command.get("name")+", "
+                    value = value[:-2]
+                else:
+                    value = "🛠️ В разработке"
+                embed.add_field(name=classCommand.get("name"), value=value, inline=False)
 
         components = [Select(placeholder='Выберете интресующию категорию', options=options)]
 
@@ -71,45 +72,37 @@ class Information(commands.Cog):
 
     @commands.Cog.listener()
     async def on_select_option(self, interaction):
-        print(interaction.user.name)
         try:
             pathOptions = interaction.values[0].split(".")
         except:
             pathOptions = []
 
         if pathOptions[0] == "help":
-            embed = discord.Embed(color=self.config.get('colors')['blue'])
+            if pathOptions[1] == "main":
+                await interaction.respond(type=6)
+                await self.help(interaction)
+            else:
+                classCommand = helpCommands.get(pathOptions[1])
+                embed = discord.Embed(title=classCommand.get("name"), color=self.config.get('colors')['blue'])
+                embed.set_thumbnail(url=self.client.user.avatar_url)
+                options = [SelectOption(label="main", value="help."+"main")]
 
-            embed.add_field(name=self.config.get('prefix')+'help',
-                            value='Показывает команды',
-                            inline=False)
-
-            embed.add_field(name=self.config.get('prefix')+'user',
-                            value='Показывает информацию о пользователе',
-                            inline=False)
-
-            embed.add_field(name=self.config.get('prefix')+'guild',
-                            value='Показывает информацию о гильдии',
-                            inline=False)
-            
-            embed.add_field(name=self.config.get('prefix')+'bot',
-                            value='Показывает информацию о боте',
-                            inline=False)
-            
-            embed.add_field(name=self.config.get('prefix')+'icon',
-                            value='Показывает иконку пользователя',
-                            inline=False)
-
-            await interaction.respond(type=6)
-            await interaction.send(embed=embed, components=[Select(placeholder='📒 Информация')], options=interaction.message.options)
-        elif interaction.values[0] == "Help #2":
-            
-            embed = discord.Embed(color=self.config.get('colors')['blue'])
-            embed.add_field(name='🖲️ Модерация',
-                                value='clear [количество] - очищает чат\n''logs [On, Off] или logs [Clear_on, Clear_off] - включает логи или функции логов.\n'f'guild - показывает информацию о гильдии\n'f'bot - показывает информацию о боте\n''icon - показывает иконку пользователя\n',
-                                inline=False)
-            await interaction.respond(type=6)
-            await interaction.send(embed=embed)
+                for command in classCommand.get("commands"):
+                    if command.get("private") is not True or self.utils.userIsPersonal(interaction.user.id):
+                        embed.add_field(name=self.config.get('prefix')+command.get("name"),
+                                        value=command.get("description"),
+                                        inline=False)
+                
+                for classCommandIndex in helpCommands:
+                    classCommandFor = helpCommands.get(classCommandIndex)
+                    if classCommandFor.get("private") is not True or self.utils.userIsPersonal(interaction.user.id):
+                        if classCommandFor.get("commands") is not None:
+                            options.append(SelectOption(label=classCommandFor.get("name"), value="help."+classCommandIndex))
+                
+                embed.set_footer(text=f'{self.client.user.name} | {self.client.get_guild(self.client.GBC.config.get("mainGuilaId"))}')
+                components = [Select(placeholder=classCommand.get("name"), options=options)]
+                await interaction.respond(type=6)
+                await interaction.send(embed=embed, components=components)
 
 
 def setup(client):
