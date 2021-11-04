@@ -41,3 +41,5 @@ Sat.14:19:55;Info;Bot is ready
 Sat.14:22:43;Info;Bot is ready
 Sat.14:27:42;Info;Bot is ready
 Sat.15:40:40;Info;Bot is ready
+Sat.15:44:01;Info;Bot is ready
+Mon.19:57:57;Info;Bot is ready
